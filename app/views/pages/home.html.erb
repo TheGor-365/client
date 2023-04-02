@@ -1,9 +1,29 @@
 <%= flash[:alert] if  flash[:alert] %>
 <%= flash[:notice] if flash[:notice] %>
 
-<h1>Client</h1>
+<h1 class="mb-5 display-6">
+  Client
+</h1>
 
-<%= form_with url: create_post_path, method: post do |form| %>
-  <%= form.text_field :title %>
-  <%= form.submit %>
-<% end %>
+<div class="col-5 shadow">
+  <%= form_with url: create_post_path, method: :post do |form| %>
+    <div class="input-group">
+      <%= form.text_field :title, class: 'form-control' %>
+      <%= form.submit class: 'btn btn-sm btn-outline-success px-5' %>
+    </div>
+  <% end %>
+</div>
+
+<div class="card p-5 shadow my-3 col-5">
+  <% @posts.each do |post| %>
+    <p>
+      <%= post['title'] %>
+    </p>
+    <em>
+      <%= post['views'] %>
+    </em>
+
+    <%= button_to 'delete', destroy_post_path(post['id']), method: :delete, class: 'btn text-danger text-decoration-none m-0 p-0 btn-link' %>
+    <hr>
+  <% end %>
+</div>
